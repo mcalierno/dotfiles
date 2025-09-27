@@ -1,0 +1,52 @@
+{
+    "C_Cpp.default.compilerPath": "/usr/bin/clang++",
+    "workbench.activityBar.location": "top",
+    "workbench.editor.tabActionLocation": "left",
+    "editor.detectIndentation": false,
+    "theme-by-language.themes": {
+        "*": "Default Dark Modern",
+        "rust": "Monokai Vibrant (Rust)"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "liveServer.settings.donotShowInfoMsg": true,
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+    },
+    "emmet.syntaxProfiles": {
+        "javascript": "jsx"
+    },
+    "terminal.integrated.automationProfile.osx": {},
+    "github.copilot.editor.enableAutoCompletions": true,
+    "workbench.startupEditor": "none",
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    },
+    "prettier.tabWidth": 4,
+    "update.showReleaseNotes": false,
+    "gitlens.views.commitDetails.files.layout": "tree",
+    "window.titleBarStyle": "custom",
+    "vscode_vibrancy.opacity": -1,
+    "workbench.colorTheme": "Default Dark Modern",
+    "vscode_vibrancy.preferedDarkTheme": "Tokyo Night Storm",
+    "vscode_vibrancy.theme": "Tokyo Night Storm",
+    "terminal.integrated.gpuAcceleration": "off",
+    "window.systemColorTheme": "dark",
+    "window.autoDetectColorScheme": false,
+    "vscode_vibrancy.imports": [
+        "/Users/Michael/.vscode/mythemes/TokyoNightStorm.css",
+        "/Users/Michael/.vscode/mythemes/TokyoNightStorm.json",
+    ],
+    "workbench.colorCustomizations": {
+        "terminal.background": "#00000000"
+    },
+    "vscode_vibrancy.preferedLightTheme": "Tokyo Night Storm",
+    
+}

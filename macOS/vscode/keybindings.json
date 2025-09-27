@@ -1,0 +1,96 @@
+// Place your key bindings in this file to override the defaults
+
+[
+    {
+        "key": "cmd+'",
+        "command": "workbench.action.terminal.toggleTerminal",
+        "when": "terminal.active"
+    },
+    {
+        "key": "shift+cmd+'",
+        "command": "workbench.action.terminal.new",
+        "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
+    },
+    {
+        "key": "shift+cmd+backspace",
+        "command": "workbench.action.terminal.killActiveTab",
+        "when": "terminalHasBeenCreated && terminalTabsFocus || terminalIsOpen && terminalTabsFocus || terminalProcessSupported && terminalTabsFocus"
+    },
+    {
+        "key": "cmd+backspace",
+        "command": "-workbench.action.terminal.killActiveTab",
+        "when": "terminalHasBeenCreated && terminalTabsFocus || terminalIsOpen && terminalTabsFocus || terminalProcessSupported && terminalTabsFocus"
+    },
+    {
+        "key": "shift+cmd+backspace",
+        "command": "workbench.action.terminal.kill"
+    },
+    {
+        "key": "ctrl+'",
+        "command": "workbench.action.terminal.toggleTerminal",
+        "when": "terminal.active"
+    },
+    {
+        "key":     "cmd+'",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when":    "terminalFocus"
+    },
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.nextEditor"
+    },
+    {
+        "key": "ctrl+[IntlBackslash]",
+        "command": "workbench.action.previousEditor"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "-workbench.action.quickOpenNavigateNextInEditorPicker",
+        "when": "inEditorsPicker && inQuickOpen"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
+        "when": "!activeEditorGroupEmpty"
+    },
+    {
+        "key":"ctrl+left",
+        "command": "maptz.camelcasenavigation.moveCamelLeftCommand"
+    },
+    {
+        "key":"ctrl+shift+left",
+        "command": "cursorWordLeftSelect"
+    },
+    {
+        "key":"ctrl+right",
+        "command": "maptz.camelcasenavigation.moveCamelRightCommand"
+    },
+    {
+        "key":"alt+right",
+        "command": "maptz.camelcasenavigation.moveCamelRightCommand"
+    },
+    {
+        "key":"ctrl+shift+right",
+        "command": "maptz.camelcasenavigation.extendCamelRightCommand"
+    },
+    {
+        "key": "alt+delete",
+        "command": "maptz.camelcasenavigation.deleteCamelRightCommand",
+        "when": "textInputFocus"
+    },
+    {
+        "key":"alt+left",
+        "command": "maptz.camelcasenavigation.moveCamelLeftCommand"
+    },
+    {
+        "key":"alt+shift+left",
+        "command": "maptz.camelcasenavigation.extendCamelLeftCommand"
+    },
+    {
+        "key": "alt+backspace",
+        "command": "maptz.camelcasenavigation.deleteCamelLeftCommand",
+        "when": "textInputFocus"
+    },
+
+    
+]
