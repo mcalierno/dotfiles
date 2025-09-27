@@ -1,0 +1,34 @@
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
+
+yabai -m config layout float
+yabai -m config window_placement second_child
+yabai -m config auto_balance off
+
+yabai -m rule --add app!="^(TeXShop|iTerm2|Safari|Terminal)$" manage=off
+#Safari|Terminal|TeXShop|TextEdit|Notes
+#yabai -m rule --add app!="^('System Settings')$" manage=on
+
+yabai -m config window_shadow on
+yabai -m rule --add app=".*" sub-layer=normal
+
+# padding
+yabai -m config top_padding 8
+yabai -m config bottom_padding 8
+yabai -m config left_padding 8
+yabai -m config right_padding 8
+yabai -m config window_gap 8
+# bottom 8, gap 10
+
+#yabai -m config window_opacity on
+yabai -m config window_opacity_duration 0.1
+yabai -m rule --add app="(iTerm2)$" opacity="1"
+yabai -m config active_window_opacity 0.9
+yabai -m config normal_window_opacity 0.9
+
+yabai -m config window_animation_easing ease_out_quart
+yabai -m config window_animation_duration 0.15
+
+yabai -m signal --add event=mission_control_exit action='echo "refresh" | nc -U /tmp/yabai-indicator.socket' label=yindmc
+yabai -m signal --add event=display_added action='echo "refresh" | nc -U /tmp/yabai-indicator.socket' label=yindda
+yabai -m signal --add event=display_removed action='echo "refresh" | nc -U /tmp/yabai-indicator.socket' label=yinddr

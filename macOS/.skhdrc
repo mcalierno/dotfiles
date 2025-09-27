@@ -1,0 +1,169 @@
+# Cycle Spaces
+alt - 0x0A : id="$(yabai -m query --spaces --display | jq 'sort_by(.index) | .[map(."has-focus") | index(true) - 1].index')" && yabai -m space --focus "${id}"
+
+alt - 0x30 : id="$(yabai -m query --spaces --display | jq 'sort_by(.index) | reverse | .[map(."has-focus") | index(true) - 1].index')" && yabai -m space --focus "${id}"
+
+#alt - left : id="$(yabai -m query --spaces --display | jq 'sort_by(.index) | .[map(."has-focus") | index(true) - 1].index')" && yabai -m space --focus "${id}"
+
+#alt - right : id="$(yabai -m query --spaces --display | jq 'sort_by(.index) | reverse | .[map(."has-focus") | index(true) - 1].index')" && yabai -m space --focus "${id}"
+
+alt - 0x24 : yabai -m space --focus recent
+alt - x : yabai -m space --focus recent
+
+# Toggle bsp
+fn - n : yabai -m space --layout $(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "float" else "bsp" end')
+
+# Create Space
+alt - n : yabai -m space --create && \
+                   index="$(yabai -m query --spaces --display | jq 'map(select(."is-native-fullscreen" == false))[-1].index')"                   && yabai -m space --focus "${index}" && echo "refresh" | nc -U /tmp/yabai-indicator.socket
+
+# Destroy Space
+alt - m : yabai -m space --focus prev && sleep 0.01 && yabai -m space recent --destroy && echo "refresh" | nc -U /tmp/yabai-indicator.socket
+
+# Create Space, move window and focus
+alt + shift - n : yabai -m space --create && index="$(yabai -m query --spaces --display | jq 'map(select(."is-native-fullscreen" == false))[-1].index')" && yabai -m window --space "${index}" && yabai -m space --focus "${index}" && echo "refresh" | nc -U /tmp/yabai-indicator.socket
+
+# Move window to space
+alt + shift - 0x24 : yabai -m window --space recent
+alt + shift - 0x0A : yabai -m window --space prev
+alt + shift - 0x30 : yabai -m window --space next
+alt + shift - 1 : yabai -m window --space 2
+alt + shift - 2 : yabai -m window --space 3
+alt + shift - 3 : yabai -m window --space 4
+alt + shift - 4 : yabai -m window --space 5
+alt + shift - 5 : yabai -m window --space 6
+alt + shift - 6 : yabai -m window --space 7
+alt + shift - 7 : yabai -m window --space 8
+alt + shift - 8 : yabai -m window --space 9
+alt + shift - 9 : yabai -m window --space 10
+
+
+# Navigate Spaces
+alt - 1 : yabai -m space --focus 1
+alt - 2 : yabai -m space --focus 2
+alt - 3 : yabai -m space --focus 3
+alt - 4 : yabai -m space --focus 4
+alt - 5 : yabai -m space --focus 5
+alt - 6 : yabai -m space --focus 6
+alt - 7 : yabai -m space --focus 7
+alt - 8 : yabai -m space --focus 8
+alt - 9 : yabai -m space --focus 9
+alt - 0 : yabai -m space --focus 10
+
+# Focus window
+hyper - a : yabai -m window --focus west
+hyper - s : yabai -m window --focus south
+hyper - w : yabai -m window --focus north
+hyper - d : yabai -m window --focus east
+
+# Focus Display
+alt - a : yabai -m display --focus west
+alt - s : yabai -m display --focus south
+hyper - w : yabai -m window --focus north
+hyper - d : yabai -m window --focus east
+
+# Focus Display
+alt - a : yabai -m display --focus west
+alt - s : yabai -m display --focus south
+alt - w : yabai -m display --focus north
+alt - d : yabai -m display --focus east
+
+# Move window to display
+alt + shift - a : yabai -m window --display west
+alt + shift - s : yabai -m window --display south
+alt + shift - w : yabai -m window --display north
+alt + shift - d : yabai -m window --display east
+
+# Cycle through visible windows
+# hyper - w : yabai -m window --focus "$( \
+  #  yabai -m query --windows --space \
+   #     | jq -re "sort_by(.frame) | map(.id) | nth(1 + index($( \
+    #        yabai -m query --windows --window | jq '.id'))) // first")"
+
+hyper - f : open -a Finder
+hyper - e : open -a Safari
+hyper - t : open -a Terminal
+hyper - n : open -a Notability
+hyper - x : open -a "System Settings"
+# hyper - 3 : open -a Spotify
+hyper - v : open -a "Visual Studio Code"
+hyper - 2 : open -a "Stickies"
+hyper - 1 : open -a "Numi"
+hyper - m : open -a "Mail"
+
+# Swap Windows
+fn - a : yabai -m window --swap west
+fn - s : yabai -m window --swap south
+fn - w : yabai -m window --swap north
+fn - d : yabai -m window --swap east
+
+# balance size of windows
+fn - 0 : yabai -m space --balance
+
+# mirror tree y-axis
+fn - r : yabai -m space --mirror y-axis
+
+# mirror tree x-axis
+fn - y : yabai -m space --mirror x-axis
+
+# toggle desktop offset
+fn - b : yabai -m space --toggle padding; yabai -m space --toggle gap
+
+# toggle window split type
+fn - v : yabai -m window --toggle split
+
+# toggle float
+fn - t : yabai -m window --toggle float;\
+          yabai -m window --grid 24:24:5:4:14:16;\
+		yabai -m window --sub-layer normal
+fn - 0x2A : yabai -m window --toggle float;\
+          yabai -m window --grid 1:1:0:0:1:1;\
+		yabai -m window --sub-layer normal
+
+
+# toggle sticky
+fn - k : yabai -m window --toggle sticky
+# toggle topmost
+fn - l : yabai -m window --sub-layer above
+fn + shift - l : yabai -m window --sub-layer normal
+
+# increase window size
+fn + cmd - a : yabai -m window --resize left:-20:0
+fn + cmd - s : yabai -m window --resize bottom:0:20
+fn + cmd - w : yabai -m window --resize top:0:-20
+fn + cmd - d : yabai -m window --resize right:20:0
+
+# decrease window size
+fn + alt - d : yabai -m window --resize left:20:0
+fn + alt - w : yabai -m window --resize bottom:0:-20
+fn + alt - s : yabai -m window --resize top:0:20
+fn + alt - a : yabai -m window --resize right:-20:0
+
+# borders
+
+# Move Windows
+fn + shift - a : yabai -m window --warp west
+fn + shift - s : yabai -m window --warp south
+fn + shift - w : yabai -m window --warp north
+fn + shift - d : yabai -m window --warp east
+
+# move space
+#alt + fn - left : yabai -m space --move prev
+#fn + alt - right : yabai -m space --move next
+fn + alt - 2 : yabai -m space --display 2
+fn + alt - 1 : yabai -m space --display 1
+
+# autofocus
+fn - 0x21 : yabai -m config focus_follows_mouse autofocus
+fn - 0x1E : yabai -m config focus_follows_mouse off
+
+# toggle window opacity
+fn - o : yabai -m config window_opacity on
+fn - p : yabai -m config window_opacity off
+
+# move stack
+hyper - 0x0A : yabai -m window --focus stack.next
+hyper - 0x30 : yabai -m window --focus stack.prev
+fn - i : yabai -m window --insert stack
+
+fn - 0x27 : yabai -m window --toggle zoom-fullscreen
