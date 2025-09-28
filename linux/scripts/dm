@@ -1,0 +1,87 @@
+#!/bin/bash
+
+# === USER CONFIGURATION ===
+
+# Themes
+THEME_A="Utterly-Nord-Light"
+KVANTUM_A="Utterly-Nord-Light"
+VSCODE_THEME_A="Default Light Modern"
+ICON_THEME_A="Fluent"
+
+THEME_B="Utterly-Nord"
+KVANTUM_B="Utterly-Nord"
+VSCODE_THEME_B="Default Dark Modern"
+ICON_THEME_B="Fluent-dark"
+
+# KWin Window Rule Name
+KWIN_RULE_NAME="code-oss"
+KWIN_RULES_PATH="$HOME/.config/kwinrulesrc"
+
+# === FUNCTION DEFINITIONS ===
+
+# Get current global theme
+get_current_theme() {
+    grep -i 'LookAndFeelPackage=' ~/.config/kdeglobals | cut -d= -f2
+}
+
+# Change global theme
+set_global_theme() {
+    lookandfeeltool -a "$1"
+}
+
+# Set Kvantum theme
+set_kvantum_theme() {
+    kvantummanager --set "$1"
+}
+
+# Set VS Code theme
+set_vscode_theme() {
+    CODE_SETTINGS="$HOME/.config/Code - OSS/User/settings.json"
+    jq --arg theme "$1" '.["workbench.colorTheme"] = $theme' "$CODE_SETTINGS" > "$CODE_SETTINGS.tmp" && mv "$CODE_SETTINGS.tmp" "$CODE_SETTINGS"
+}
+
+# Set icons
+set_icon_theme() {
+    local theme_name="$1"
+    kwriteconfig5 --file kdeglobals --group Icons --key Theme "$theme_name"
+    echo "🎨 Icon theme set to: $theme_name"
+}
+
+# Enable or disable KWin rule
+set_kwin_rule_enabled() {
+    local enabled="$1"  # 1 or 0
+    if [ -f "$KWIN_RULES_PATH" ]; then
+        sed -i "/^\[.*$KWIN_RULE_NAME.*\]/,/^\[/{s/^Enabled=.*/Enabled=$enabled/}" "$KWIN_RULES_PATH"
+    fi
+}
+
+# Reload KWin rules
+reload_kwin() {
+    qdbus org.kde.KWin /KWin reconfigure
+}
+
+# === MAIN LOGIC ===
+
+CURRENT_THEME=$(get_current_theme)
+
+if [[ "$CURRENT_THEME" == "$THEME_A" ]]; then
+    echo "Switching to $THEME_B"
+    set_global_theme "$THEME_B"
+    set_icon_theme "$ICON_THEME_B"
+    set_kvantum_theme "$KVANTUM_B"
+    set_vscode_theme "$VSCODE_THEME_B"
+    set_kwin_rule_enabled 0  # Disable rule in Theme B
+else
+    echo "Switching to $THEME_A"
+    set_global_theme "$THEME_A"
+    set_icon_theme "$ICON_THEME_A"
+    set_kvantum_theme "$KVANTUM_A"
+    set_vscode_theme "$VSCODE_THEME_A"
+    set_kwin_rule_enabled 1  # Enable rule in Theme A
+fi
+
+reload_kwin
+kquitapp6 plasmashell                     
+kstart5 plasmashell
+
+echo "✅ Theme switch complete."

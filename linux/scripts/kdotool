@@ -1,0 +1,34 @@
+#!/usr/bin/env zsh
+set -eo pipefail
+#
+## open-app
+#
+# Usage:
+# open-app [action] <class> [args]
+# action:
+#     -R:         move window to current desktop and focus
+#
+# name:           window class / executable name
+# args:           executable program arguments
+
+zparseopts -D -K -a ARGS -- R || exit 1
+
+# focus app if already running
+WINDOW=$(kdotool search --class $1)
+if [ -n "$WINDOW" ]
+then
+	if [ -n "${ARGS[(r)-R]}" ]
+	then
+		kdotool set_desktop_for_window $WINDOW $(kdotool get_desktop)
+	fi
+	kdotool windowactivate $WINDOW
+	exit 0
+fi
+cd ${HOME}
+
+if exe=$(whence -p $1) && [ -x $exe ]
+then
+	exec $*
+else
+	gtk-launch $*
+fi
