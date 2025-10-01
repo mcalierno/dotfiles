@@ -1,0 +1,9 @@
+[Unit]
+Description=KMonad keyboard remapping
+
+[Service]
+ExecStart=/usr/bin/kmonad /home/michael/.config/kmonad/config.kbd
+Restart=always
+
+[Install]
+WantedBy=default.target
